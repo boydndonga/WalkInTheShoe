@@ -108,6 +108,8 @@ venv.bak/
 virt/
 .virt/
 
+# vscode
+.vscode/
 
 # Spyder project settings
 .spyderproject
@@ -169,12 +171,6 @@ python3.6 manage.py server
 
 EOF
 
-
-cat >> start.sh << EOF
-
-python3.6 manage.py server
-
-EOF
 
 # Creating manage file
 
@@ -403,7 +399,7 @@ done
 
 
 # Creating virtual environment
-python3.6 -m venv virtual
+python3 -m venv virtual
 
 # Activate virtual environment
 source virtual/bin/activate
