@@ -3,7 +3,7 @@ from . import main
 from .. import db
 from flask_login import login_required, current_user
 from app.models import Post, User, Comment
-from .forms import PostForm, Commentform
+from .forms import PostForm, CommentForm
 
 
 @main.route('/')
@@ -35,7 +35,7 @@ def post(id):
 @main.route('/post/comment/new/<int:id>', methods=['GET', 'POST'])
 @login_required
 def new_comment(id):
-    form = Commentform()
+    form = CommentForm()
     post = Post.load_post(id)
     if form.validate_on_submit():
         content = form.content.data
