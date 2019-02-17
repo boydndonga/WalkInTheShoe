@@ -44,7 +44,7 @@ def new_comment(id):
         new_comment = Comment(
             post_id=post.id,
             content=content,
-            user_id=current_user)
+            user_id=current_user.id)
 
         # save review method
         new_comment.save_comment()
