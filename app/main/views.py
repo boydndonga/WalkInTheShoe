@@ -28,26 +28,32 @@ def new_post():
 @main.route('/post/<int:id>')
 def post(id):
     post = Post.load_post(id)
-    # projects = Project.query.filter_by(post_id=id).all()
-    return render_template('main/post.html', post=post)
+    comments = Comment.query.filter_by(post_id=id).all()
+    return render_template('main/post.html', post=post, comments=comments)
 
 
-# @main.route('/post/comment/new/<int:id>', methods = ['GET','POST'])
-# @login_required
-# def new_comment(id):
-#     form = Commentform()
-#     movie = get_movie(id)
-#     if form.validate_on_submit():
-#         title = form.title.data
-#         review = form.review.data
+@main.route('/post/comment/new/<int:id>', methods=['GET', 'POST'])
+@login_required
+def new_comment(id):
+    form = Commentform()
+    post = Post.load_post(id)
+    if form.validate_on_submit():
+        content = form.content.data
 
-#         # Updated review instance
-#         new_review = Review(movie_id=movie.id,movie_title=title,image_path=movie.poster,movie_review=review,user=current_user)
+        # Updated review instance
+        new_comment = Comment(
+            post_id=post.id,
+            post_comment=content,
+            user=current_user)
 
-#         # save review method
-#         new_review.save_review()
-#         return redirect(url_for('.movie',id = movie.id ))
+        # save review method
+        new_review.save_review()
+        return redirect(url_for('.post', id=post.id))
 
-#     title = f'{movie.title} review'
-#     return render_template('new_review.html',title = title, review_form=form, movie=movie)
+    title = f'{post.body} post'
+    return render_template(
+        'new_review.html',
+        title=title,
+        comment_form=form,
+        post=post)
 

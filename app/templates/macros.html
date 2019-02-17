@@ -1,0 +1,15 @@
+{% macro displayPosts(posts) %}
+    {% for post in posts %}
+        <li><a href="{{url_for('main.post',id=post.id)}}">{{ post.body }}</a></li>
+    {% endfor %}
+{% endmacro %}
+
+
+{% macro displayPostComments(comments) %}
+    {% for comment in comments %}
+        <ul>
+            <li>{{ comment.author}}</li>
+        </ul>
+        <p>{{ comment.content}}</p>
+    {% endfor %}
+{% endmacro %}
