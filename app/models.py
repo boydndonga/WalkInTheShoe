@@ -37,4 +37,21 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    author_id = db.Column(db.Integer, db.ForeignKey('users.id')) 
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def save_post(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_post(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @classmethod
+    def load_post(cls, id):
+        return Post.query.get(int(id))
+
+    @classmethod
+    def get_posts(cls):
+        posts = Post.query.all()
+        return posts
