@@ -2,8 +2,8 @@ from flask import render_template, request, redirect, url_for, abort
 from . import main
 from .. import db
 from flask_login import login_required, current_user
-from app.models import Post, User
-from .forms import PostForm
+from app.models import Post, User, Comment
+from .forms import PostForm, Commentform
 
 
 @main.route('/')
