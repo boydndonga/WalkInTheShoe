@@ -52,8 +52,7 @@ def new_comment(id):
 
     title = f'{post.body} post'
     return render_template(
-        'new_review.html',
+        'main/new_comment.html',
         title=title,
         comment_form=form,
         post=post)
-
