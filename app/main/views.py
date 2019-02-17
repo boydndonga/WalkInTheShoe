@@ -43,11 +43,11 @@ def new_comment(id):
         # Updated review instance
         new_comment = Comment(
             post_id=post.id,
-            post_comment=content,
-            user=current_user)
+            content=content,
+            user_id=current_user)
 
         # save review method
-        new_review.save_review()
+        new_comment.save_comment()
         return redirect(url_for('.post', id=post.id))
 
     title = f'{post.body} post'
