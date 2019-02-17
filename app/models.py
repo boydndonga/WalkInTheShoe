@@ -10,6 +10,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(255),unique=True, index=True, nullable=False)
     pass_secure = db.Column(db.String(255), nullable=False)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    comments = db.relationship('Comment', backref='author', lazy='dynamic')
+
 
     def __repr__(self):
         return f'User {self.username}'
@@ -38,6 +40,7 @@ class Post(db.Model):
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    comments = db.relationship('Post', backref='post', lazy='dynamic')
 
     def save_post(self):
         db.session.add(self)
@@ -55,3 +58,12 @@ class Post(db.Model):
     def get_posts(cls):
         posts = Post.query.all()
         return posts
+
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = ddb.Column(db.Integer, db.ForeignKey("posts.id"))
+    content = db.Column(db.String)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
