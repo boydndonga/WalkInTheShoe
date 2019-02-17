@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro %}
+
+{% block content %}
+    {{ post.author.username}}
+    {{ post.body}}
+
+    {% if comments%}
+        {{ macro.displayPostComments(comments)}}
+    {% else %}
+        <p>tno comments on this post yet!!</p>
+    {% endif %}
+    
+{% endblock %}
