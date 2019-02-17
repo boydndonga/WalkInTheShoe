@@ -25,6 +25,13 @@ def new_post():
     return render_template('main/new_post.html', post_form=form)
 
 
+@main.route('/post/<int:id>')
+def post(id):
+    post = Post.load_post(id)
+    # projects = Project.query.filter_by(post_id=id).all()
+    return render_template('main/post.html', post=post)
+
+
 # @main.route('/post/comment/new/<int:id>', methods = ['GET','POST'])
 # @login_required
 # def new_comment(id):
