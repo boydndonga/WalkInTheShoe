@@ -2,7 +2,7 @@ from . import auth
 from .. import db
 from flask_login import login_user, logout_user, login_required
 from .forms import LoginForm, RegistrationForm
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, flash
 from app.models import User
 
 
@@ -39,6 +39,7 @@ def login():
         title=title)
 
 
+@auth.route('/logout')
 @login_required
 def logout():
     logout_user()
